@@ -113,10 +113,11 @@ def _capture_score(board: chess.Board, move: chess.Move) -> int:
     if attacker is None:
         return 0
 
-    if board.is_en_passant(move):
-        victim = chess.PAWN
-    else:
-        victim = board.piece_type_at(move.to_square)
+    victim = (
+        chess.PAWN
+        if board.is_en_passant(move)
+        else board.piece_type_at(move.to_square)
+    )
 
     if victim is None:
         return 0
